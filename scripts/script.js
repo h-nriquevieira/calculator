@@ -29,11 +29,15 @@ const calculator = {
     calculator.displayResult(result);
   },
   factorial: function(a) {
+    console.log('outside');
+    if(!calculator.operand2 && calculator.operand1) {
+    console.log('inside');
     let result = a;
     for (let i = a-1; i > 0; i--) {
       result *= i;
     }
     calculator.displayResult(result);
+    }
   },
 
   operand1: '',
@@ -104,7 +108,7 @@ const calculator = {
       }
     }
     else if (this.id === 'equal') {
-      calculator.evaluate();
+      if (calculator.operand2) calculator.evaluate();
     } else if (this.id === 'ac') {
       calculator.resetCalculator();
       calculator.resetDisplay();
@@ -112,6 +116,7 @@ const calculator = {
         if (!calculator.operand1) {}
         else if (!calculator.operand2) {
           calculator.toOperator(key);
+          if (this.id === 'factorial') {calculator.evaluate();}
       } else calculator.evaluate();
     }
   },
