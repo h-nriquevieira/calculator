@@ -40,11 +40,14 @@ const calculator = {
   },
   factorial: function(a) {
     if(!calculator.operand2 && calculator.operand1) {
-    let result = a;
-    for (let i = a-1; i > 0; i--) {
+      let result = a;
+      for (let i = a-1; i > 0; i--) {
       result *= i;
     }
     calculator.displayResult(result);
+    }
+    if (a === 0) {
+      calculator.displayResult(1);
     }
   },
 
@@ -128,7 +131,6 @@ const calculator = {
   inputChecker: function(e) {
     let pressedKey = e.key;
     let key = this;
-    console.log(pressedKey);
     if (!isNaN(parseInt((this.id))) || !isNaN(parseInt(pressedKey))) {
       if (!calculator.operator) {
         if (calculator.equalEvaluate) {
@@ -164,8 +166,8 @@ const calculator = {
       calculator.resetCalculator();
       calculator.resetDisplay();
     } else {
-        if (!calculator.operand1) {}
-        else if (!calculator.operand2) {
+        if (!calculator.operand1) {calculator.operand1 = 0;}
+        if (!calculator.operand2) {
           calculator.toOperator(pressedKey || key);
           if (this.id === 'factorial' || pressedKey === 'f') {calculator.evaluate();}
       } else {
