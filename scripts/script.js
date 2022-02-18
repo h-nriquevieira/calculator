@@ -6,6 +6,7 @@
 
 */
 const buttons = document.querySelectorAll('button');
+
 const calculator = {
   add: function(a,b) {
     let result = a+b;
@@ -40,18 +41,26 @@ const calculator = {
   operand2: '',
   operator: '',
   displayedOperator: '',
+  displayedOperand1: '',
+  displayedOperand2: '',
+
+  buttons: document.querySelectorAll('button'),
+  display: document.querySelector('#display p'),
 
   toOperand1: function(key) {
     calculator.operand1 += key.id;
+    this.updateDisplay();
     },
   toOperand2: function(key) {
     calculator.operand2 += key.id;
+    this.updateDisplay();
     },
   toOperator: function(key) {
     calculator.operator = key.id;
+    this.updateDisplay();
   },
-  updateDisplayedOperator: function(key) {
-    switch (this.id) {
+  updateDisplayedOperator: function() {
+    switch (this.operator) {
       case 'add':
         calculator.displayedOperator = '+';
         break;
@@ -72,7 +81,19 @@ const calculator = {
         break;
     }
   },
-  typeChecker: function() {
+  updateDisplayedOperand1: function() {
+    this.displayedOperand1 = this.operand1;
+  },
+  updateDisplayedOperand2: function() {
+    this.displayedOperand2 = this.operand2;
+  },
+  updateDisplay: function() {
+    this.updateDisplayedOperand1();
+    this.updateDisplayedOperand2();
+    this.updateDisplayedOperator();
+    this.display.textContent = `${this.displayedOperand1} ${this.displayedOperator} ${this.displayedOperand2}`;
+  },
+  inputChecker: function() {
     let key = this;
     if (!isNaN(parseInt((this.id)))) {
       if (!calculator.operator) {
@@ -86,7 +107,6 @@ const calculator = {
     } else {
       if (!calculator.operand2) {
         calculator.toOperator(key);
-        updateDisplayedOperator(key);
       } else calculator.evaluate();
     }
   },
@@ -114,4 +134,4 @@ const calculator = {
   }
 }
 
-buttons.forEach(button => button.addEventListener('click', calculator.typeChecker));
+calculator.buttons.forEach(button => button.addEventListener('click', calculator.inputChecker));
