@@ -78,6 +78,8 @@ const calculator = {
       case 'factorial':
         calculator.displayedOperator = '!';
         break;
+      case '':
+        calculator.displayedOperator = '';
     }
   },
   updateDisplayedOperand1: function() {
@@ -103,10 +105,13 @@ const calculator = {
     }
     else if (this.id === 'equal') {
       calculator.evaluate();
+    } else if (this.id === 'ac') {
+      calculator.resetCalculator();
+      calculator.resetDisplay();
     } else {
-      if (!calculator.operand1) {}
-      else if (!calculator.operand2) {
-        calculator.toOperator(key);
+        if (!calculator.operand1) {}
+        else if (!calculator.operand2) {
+          calculator.toOperator(key);
       } else calculator.evaluate();
     }
   },
@@ -134,7 +139,18 @@ const calculator = {
   },
   displayResult: function(result) {
     calculator.display.textContent = result;
-    
+    calculator.resetCalculator();
+  },
+  resetCalculator: function() {
+    calculator.operand1 = '';
+    calculator.operand2 = '';
+    calculator.operator = '';
+    calculator.updateDisplayedOperator();
+    calculator.updateDisplayedOperand1();
+    calculator.updateDisplayedOperand2();
+  },
+  resetDisplay: function() {
+    calculator.display.textContent = '';
   },
 }
 
