@@ -214,7 +214,7 @@ const calculator = {
     calculator.resetDisplay();
   },
   resetDisplay: function() {
-    calculator.display.textContent = '';
+    calculator.display.textContent = '0';
   },
 }
 
