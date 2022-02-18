@@ -141,6 +141,21 @@ const calculator = {
         calculator.toOperand2(pressedKey || key);
       }
     }
+    else if(this.id === '.' || pressedKey === '.' || pressedKey === ',') {
+      if (!calculator.operand1) {
+        calculator.toOperand1('0.');
+      } else if (!calculator.operator) {
+        if (calculator.operand1.charAt(calculator.operand1.length-1) !== '.' && parseInt(calculator.operand1) === +calculator.operand1){
+          calculator.toOperand1('.');
+        }
+      } else if (!calculator.operand2) {
+        calculator.toOperand2('0.')
+      } else {
+        if (calculator.operand2.charAt(calculator.operand2.length-1) !== '.' && parseInt(calculator.operand2) === +calculator.operand2){
+          calculator.toOperand2('.');
+        }
+      }
+    }
     else if (this.id === 'equal' || pressedKey === '=' || pressedKey === 'enter') {
       calculator.equalEvaluate = true;
       if (calculator.operand2) calculator.evaluate();
