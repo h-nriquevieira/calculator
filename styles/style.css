@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
+  margin: 0;
+}
+
+body,
+.calculator {
+  height: 100vh;
+}
+
+.calculator {
+  background-color: #22252d;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-family: 'Open Sans';
+}
+
+.display {
+  padding: 10px;
+}
+
+p{
+  text-align: end;
+  padding: 10px;
+  color: white;
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.controls {
+  background-color: #292d36;
+  height: 65%;
+  display: flex;
+  padding: 25px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: space-between;
+  justify-content: space-between;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+button {
+  all: unset;
+  width: 18%;
+  background-color: #272B33;
+  border-radius: 10px;
+  color: white;
+  padding: 12px 6px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.red {
+  color: #D76061;
+}
+
+.green {
+  color: #6bf2d2;
+}
