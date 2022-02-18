@@ -22,8 +22,13 @@ const calculator = {
     calculator.displayResult(result);
   },
   divide: function(a,b) {
-    let result = a/b;
-    calculator.displayResult(result);
+    if (b === 0) {
+      calculator.display.textContent = 'ERROR'
+    } else {
+        let result = a/b;
+        calculator.displayResult(result);
+    }
+    
   },
   multiply: function(a,b) {
     let result = a*b;
