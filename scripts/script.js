@@ -10,31 +10,30 @@ const buttons = document.querySelectorAll('button');
 const calculator = {
   add: function(a,b) {
     let result = a+b;
-    console.log(result);
+    calculator.displayResult(result);
   },
   subtract: function(a,b) {
     let result = a-b;
-    console.log(result);
+    calculator.displayResult(result);
   },
   divide: function(a,b) {
     let result = a/b;
-    console.log(result);
+    calculator.displayResult(result);
   },
   multiply: function(a,b) {
     let result = a*b;
-    console.log(result);
+    calculator.displayResult(result);
   },
   exponentiate: function(a,b) {
     let result = a ** b;
-    console.log(result);
+    calculator.displayResult(result);
   },
   factorial: function(a) {
     let result = a;
     for (let i = a-1; i > 0; i--) {
       result *= i;
     }
-    console.log(result);
-    return result;
+    calculator.displayResult(result);
   },
 
   operand1: '',
@@ -105,7 +104,8 @@ const calculator = {
     else if (this.id === 'equal') {
       calculator.evaluate();
     } else {
-      if (!calculator.operand2) {
+      if (!calculator.operand1) {}
+      else if (!calculator.operand2) {
         calculator.toOperator(key);
       } else calculator.evaluate();
     }
@@ -131,7 +131,11 @@ const calculator = {
         calculator.factorial(+calculator.operand1);
         break;
     }
-  }
+  },
+  displayResult: function(result) {
+    calculator.display.textContent = result;
+    
+  },
 }
 
 calculator.buttons.forEach(button => button.addEventListener('click', calculator.inputChecker));
