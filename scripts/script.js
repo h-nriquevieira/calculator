@@ -49,6 +49,8 @@ const calculator = {
   displayedOperator: '',
   displayedOperand1: '',
   displayedOperand2: '',
+  operatorEvaluate: '',
+  equalEvaluate: false,
 
   buttons: document.querySelectorAll('button'),
   display: document.querySelector('#display p'),
@@ -123,12 +125,19 @@ const calculator = {
     let key = this;
     if (!isNaN(parseInt((this.id))) || !isNaN(parseInt(pressedKey))) {
       if (!calculator.operator) {
-        calculator.toOperand1(pressedKey || key);
+        if (calculator.equalEvaluate) {
+          let value =  pressedKey || key;
+          calculator.resetCalculator()
+          calculator.toOperand1(value);
+        } else {
+            calculator.toOperand1(pressedKey || key);
+          }
       } else {
         calculator.toOperand2(pressedKey || key);
       }
     }
     else if (this.id === 'equal' || pressedKey === '=' || pressedKey === 'enter') {
+      calculator.equalEvaluate = true;
       if (calculator.operand2) calculator.evaluate();
     } else if (this.id === 'ac' || pressedKey === 'c') {
       calculator.resetCalculator();
@@ -138,7 +147,10 @@ const calculator = {
         else if (!calculator.operand2) {
           calculator.toOperator(pressedKey || key);
           if (this.id === 'factorial' || pressedKey === 'f') {calculator.evaluate();}
-      } else calculator.evaluate();
+      } else {
+        calculator.operatorEvaluate = this.id || calculator.convertKeyOperand(pressedKey);
+        calculator.evaluate()
+      };
     }
   },
   evaluate: function() {
@@ -164,16 +176,21 @@ const calculator = {
     }
   },
   displayResult: function(result) {
-    calculator.display.textContent = result;
-    calculator.resetCalculator();
+    calculator.operand1 = result;
+    calculator.operator = calculator.operatorEvaluate;
+    calculator.operand2 = '';
+    calculator.operatorEvaluate = '';
+    calculator.updateDisplay();
   },
   resetCalculator: function() {
     calculator.operand1 = '';
     calculator.operand2 = '';
     calculator.operator = '';
+    calculator.equalEvaluate = false;
     calculator.updateDisplayedOperator();
     calculator.updateDisplayedOperand1();
     calculator.updateDisplayedOperand2();
+    calculator.resetDisplay();
   },
   resetDisplay: function() {
     calculator.display.textContent = '';
