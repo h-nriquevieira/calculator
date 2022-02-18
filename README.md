@@ -1,6 +1,6 @@
 # calculator
 
-A simple calculator created to practice javascript, css and html. [Click here] for a live demo.
+A simple calculator created to practice javascript, css and html. [Click here](https://h-nriquevieira.github.io/calculator/) for a live demo.
 
 This was my first attempt at responsive design, and I'm pretty happy with how it turned out. Had some trouble testing, as simulating devices using dev tools doesn't really represent what it looks like on the actual device.
 
