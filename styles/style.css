@@ -14,6 +14,18 @@ body {
   height: calc(var(--vh, 1vh)*100);
 }
 
+a {
+  all: unset;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+#github {
+  font-weight: 400;
+}
+
 
 .calculator {
   background-color: #22252d;
@@ -62,6 +74,10 @@ button {
   padding: 12px 6px;
   text-align: center;
   font-weight: 700;
+}
+
+button:hover {
+  background-color: #33373f;
 }
 
 .red {

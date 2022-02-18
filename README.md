@@ -9,3 +9,5 @@ As far as what I got to practice, by far the most important thing was structring
 The layout wasn't a huge challenge, but it gave me a few headaches. Got to learn a little bit about how webkit handles vh units.
 
 Overall, I learned a lot. I wonder how much better I will be able to write this in the future.
+
+GitHub icon provided by Flaticon -> [Flaticon](https://www.flaticon.com/)
