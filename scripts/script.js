@@ -29,9 +29,7 @@ const calculator = {
     calculator.displayResult(result);
   },
   factorial: function(a) {
-    console.log('outside');
     if(!calculator.operand2 && calculator.operand1) {
-    console.log('inside');
     let result = a;
     for (let i = a-1; i > 0; i--) {
       result *= i;
@@ -51,16 +49,33 @@ const calculator = {
   display: document.querySelector('#display p'),
 
   toOperand1: function(key) {
-    calculator.operand1 += key.id;
+    calculator.operand1 += key.id || key;
     this.updateDisplay();
     },
   toOperand2: function(key) {
-    calculator.operand2 += key.id;
+    calculator.operand2 += key.id || key;
     this.updateDisplay();
     },
   toOperator: function(key) {
-    calculator.operator = key.id;
+    calculator.operator = key.id || calculator.convertKeyOperand(key);
     this.updateDisplay();
+  },
+  convertKeyOperand: function (key) {
+    switch (key) {
+      case '+':
+        return 'add';
+      case '-':
+        return 'subtract';
+      case '/':
+        return 'divide';
+      case '*':
+        return 'multiply';
+      case 'e':
+        return 'exponentiate';
+      case 'f':
+        return 'factorial';
+      
+    }
   },
   updateDisplayedOperator: function() {
     switch (this.operator) {
@@ -98,7 +113,7 @@ const calculator = {
     this.updateDisplayedOperator();
     this.display.textContent = `${this.displayedOperand1} ${this.displayedOperator} ${this.displayedOperand2}`;
   },
-  inputChecker: function() {
+  inputCheckerMouse: function() {
     let key = this;
     if (!isNaN(parseInt((this.id)))) {
       if (!calculator.operator) {
@@ -117,6 +132,28 @@ const calculator = {
         else if (!calculator.operand2) {
           calculator.toOperator(key);
           if (this.id === 'factorial') {calculator.evaluate();}
+      } else calculator.evaluate();
+    }
+  },
+  inputCheckerKey: function(e) {
+    let key = e.key;
+    if (!isNaN(parseInt((key)))) {
+      if (!calculator.operator) {
+        calculator.toOperand1(key);
+      } else {
+        calculator.toOperand2(key);
+      }
+    }
+    else if (key === '=') {
+      if (calculator.operand2) calculator.evaluate();
+    } else if (key === 'c') {
+      calculator.resetCalculator();
+      calculator.resetDisplay();
+    } else {
+        if (!calculator.operand1) {}
+        else if (!calculator.operand2) {
+          calculator.toOperator(key);
+          if (key === 'f') {calculator.evaluate();}
       } else calculator.evaluate();
     }
   },
@@ -159,4 +196,6 @@ const calculator = {
   },
 }
 
-calculator.buttons.forEach(button => button.addEventListener('click', calculator.inputChecker));
+calculator.buttons.forEach(button => button.addEventListener('click', calculator.inputCheckerMouse));
+window.addEventListener('keydown', calculator.inputCheckerKey);
+function log(e) {console.log(e.key)};
