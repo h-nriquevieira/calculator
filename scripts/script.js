@@ -128,6 +128,7 @@ const calculator = {
   inputChecker: function(e) {
     let pressedKey = e.key;
     let key = this;
+    console.log(pressedKey);
     if (!isNaN(parseInt((this.id))) || !isNaN(parseInt(pressedKey))) {
       if (!calculator.operator) {
         if (calculator.equalEvaluate) {
@@ -156,7 +157,7 @@ const calculator = {
         }
       }
     }
-    else if (this.id === 'equal' || pressedKey === '=' || pressedKey === 'enter') {
+    else if (this.id === 'equal' || pressedKey === '=' || pressedKey === 'Enter') {
       calculator.equalEvaluate = true;
       if (calculator.operand2) calculator.evaluate();
     } else if (this.id === 'ac' || pressedKey === 'c') {
