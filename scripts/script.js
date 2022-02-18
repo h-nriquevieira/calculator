@@ -1,8 +1,13 @@
 /* 
-- Create event to listen for chance on input value and assign it to operand1 property on calculator if operator is empty
-- Assign value to operator property when one is selected
-- Assign input value to operand2 if operator is not empty
-- If operand2, clicking on any operator should evaluate the expression;
+- Understand current evaluate workflow;
+- If evaluate was called by '=':
+  - set operand1 = result, operand2 and operator = '';
+  - set to reset on number mode:
+    - if next input is a number, reset before running toOperand1
+    - if it is an operator, toOperator and continue
+- If evaluate was called by an operator:
+  - set result as operand1
+  - set newoperator as operator
 
 */
 const buttons = document.querySelectorAll('button');
@@ -113,47 +118,26 @@ const calculator = {
     this.updateDisplayedOperator();
     this.display.textContent = `${this.displayedOperand1} ${this.displayedOperator} ${this.displayedOperand2}`;
   },
-  inputCheckerMouse: function() {
+  inputChecker: function(e) {
+    let pressedKey = e.key;
     let key = this;
-    if (!isNaN(parseInt((this.id)))) {
+    if (!isNaN(parseInt((this.id))) || !isNaN(parseInt(pressedKey))) {
       if (!calculator.operator) {
-        calculator.toOperand1(key);
+        calculator.toOperand1(pressedKey || key);
       } else {
-        calculator.toOperand2(key);
+        calculator.toOperand2(pressedKey || key);
       }
     }
-    else if (this.id === 'equal') {
+    else if (this.id === 'equal' || pressedKey === '=' || pressedKey === 'enter') {
       if (calculator.operand2) calculator.evaluate();
-    } else if (this.id === 'ac') {
+    } else if (this.id === 'ac' || pressedKey === 'c') {
       calculator.resetCalculator();
       calculator.resetDisplay();
     } else {
         if (!calculator.operand1) {}
         else if (!calculator.operand2) {
-          calculator.toOperator(key);
-          if (this.id === 'factorial') {calculator.evaluate();}
-      } else calculator.evaluate();
-    }
-  },
-  inputCheckerKey: function(e) {
-    let key = e.key;
-    if (!isNaN(parseInt((key)))) {
-      if (!calculator.operator) {
-        calculator.toOperand1(key);
-      } else {
-        calculator.toOperand2(key);
-      }
-    }
-    else if (key === '=') {
-      if (calculator.operand2) calculator.evaluate();
-    } else if (key === 'c') {
-      calculator.resetCalculator();
-      calculator.resetDisplay();
-    } else {
-        if (!calculator.operand1) {}
-        else if (!calculator.operand2) {
-          calculator.toOperator(key);
-          if (key === 'f') {calculator.evaluate();}
+          calculator.toOperator(pressedKey || key);
+          if (this.id === 'factorial' || pressedKey === 'f') {calculator.evaluate();}
       } else calculator.evaluate();
     }
   },
@@ -196,6 +180,5 @@ const calculator = {
   },
 }
 
-calculator.buttons.forEach(button => button.addEventListener('click', calculator.inputCheckerMouse));
-window.addEventListener('keydown', calculator.inputCheckerKey);
-function log(e) {console.log(e.key)};
+calculator.buttons.forEach(button => button.addEventListener('click', calculator.inputChecker));
+window.addEventListener('keydown', calculator.inputChecker);
