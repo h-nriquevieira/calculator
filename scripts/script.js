@@ -1,15 +1,3 @@
-/* 
-- Understand current evaluate workflow;
-- If evaluate was called by '=':
-  - set operand1 = result, operand2 and operator = '';
-  - set to reset on number mode:
-    - if next input is a number, reset before running toOperand1
-    - if it is an operator, toOperator and continue
-- If evaluate was called by an operator:
-  - set result as operand1
-  - set newoperator as operator
-
-*/
 const buttons = document.querySelectorAll('button');
 
 const calculator = {
