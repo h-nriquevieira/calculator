@@ -11,9 +11,7 @@ O layout não deu muito trabalho, apesar de algumas dores de cabeça com a vers�
 
 No geral, aprendi muito com esse projeto. Só posso imaginar o quão melhor poderei reescrever esse código no futuro.
 
-=================================
-English version
-=================================
+== English version
 
 A simple calculator created to practice javascript, css and html. [Click here](https://h-nriquevieira.github.io/calculator/) for a live demo.
 
