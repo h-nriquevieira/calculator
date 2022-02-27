@@ -47,6 +47,7 @@ a:hover {
 p{
   text-align: end;
   padding: 10px;
+  -webkit-text-fill-color: white;
   color: white;
   font-size: 36px;
   font-weight: 600;
@@ -70,6 +71,7 @@ button {
   width: 18%;
   background-color: #272B33;
   border-radius: 10px;
+  -webkit-text-fill-color: white;
   color: white;
   padding: 12px 6px;
   text-align: center;
@@ -81,10 +83,12 @@ button:hover {
 }
 
 .red {
+  -webkit-text-fill-color: #D76061;
   color: #D76061;
 }
 
 .green {
+  -webkit-text-fill-color: #6bf2d2;
   color: #6bf2d2;
 }
 
